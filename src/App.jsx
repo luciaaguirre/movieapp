@@ -21,7 +21,7 @@ const App = () => {
 
   const [movieList, setMovieList] = useState([]);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchMovies = async () => {
     setIsLoading(true);
@@ -49,7 +49,7 @@ const App = () => {
       console.error(`Error fetching movies: ${error}`);
       setErrorMessage("Error fetching movies. Please try again later.");
     } finally {
-      setIsLoading(true);
+      setIsLoading(false);
     }
   };
 
