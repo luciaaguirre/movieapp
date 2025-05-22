@@ -27,11 +27,11 @@ export const updateSearchCount = async (searchTerm, movie) => {
       });
       //3. If it doesn't exist, create a new document with the search term and count as 1
     } else {
-      await database.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(){
-        searchTerm, 
-        count: 1, 
+      await database.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
+        searchTerm,
+        count: 1,
         movie_id: movie.id,
-        poster_url: `https://image.tbdb.org/t/p/w500${movie.poster_path}`
+        poster_url: `https://image.tbdb.org/t/p/w500${movie.poster_path}`,
       });
     }
   } catch (error) {

@@ -30,7 +30,13 @@ const App = () => {
   //by waiting for the user to stop typing for 500ms
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 
-  useDebounce(() => searchTerm, 500, []);
+  useDebounce(
+    () => {
+      setDebouncedSearchTerm(searchTerm);
+    },
+    500,
+    [searchTerm]
+  );
 
   const fetchMovies = async (query = "") => {
     setIsLoading(true);
@@ -57,7 +63,11 @@ const App = () => {
 
       setMovieList(data.results || []);
 
-      updateSearchCount();
+      //update search count whenever a user performs a search
+
+      if (query && data.results.length > 0) {
+        await updateSearchCount(query, data.results[0]);
+      }
     } catch (error) {
       console.error(`Error fetching movies: ${error}`);
       setErrorMessage("Error fetching movies. Please try again later.");
